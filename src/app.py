@@ -29,6 +29,7 @@ from datetime import date
 
 
 app = dash.Dash(__name__)
+server = app.server
 app.title = 'Projet | INF8808'
 
 
