@@ -29,7 +29,6 @@ from datetime import date
 
 
 app = dash.Dash(__name__)
-server = app.server
 app.title = 'Projet | INF8808'
 
 
@@ -192,13 +191,15 @@ def update_dates(start_date, end_date, figure):
 data = prep_data()
 my_df = preprocess.read_data()
 season_df = preprocess.group_by_season(my_df)
+day_df = preprocess.group_days(my_df)
+night_df = preprocess.group_nights(my_df)
 
 create_template()
 fig_Compare = line_chart.init_figure_Compare(my_df)
 fig_Toggle = line_chart.init_figure_Toggle()
 fig_Toggle = line_chart.draw(fig_Toggle, my_df, MODES['homeowner'])
 fig_Season = bar_chart.init_figure_Season(season_df)
-fig_Days = bar_chart.init_figure_Days()
+fig_Days = bar_chart.init_figure_Days(day_df, night_df)
 
 app.layout = init_app_layout(fig_Compare,fig_Toggle,fig_Season,fig_Days)
 preprocess.filter(my_df)

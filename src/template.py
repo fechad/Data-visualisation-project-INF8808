@@ -16,7 +16,7 @@ THEME = {
     'background_color': '#FFF',
     'background_color2': '#FFF',
     'background_color3': '#FFF',
-    'background_color4': '#BBB',
+    'background_color4': '#FFF',
     'font_family': 'Arial',
     'font_color': '#000',
     'label_font_size': 20,

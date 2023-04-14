@@ -28,3 +28,6 @@ def get_hover_template(name, mode):
     # TODO: Generate and return the hover template
  
     return "<b style='font-family: Grenze Gotisch;font-size: 24px; color: black'> {name} </b> <br><br> " + "{mode} <extra></extra>"
+
+def get_week_template(time):
+    return " " + time + "<br> <b>%{x}</b> <br> " + "%{y:.2f} kWh <extra></extra>"

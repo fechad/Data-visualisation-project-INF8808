@@ -8,6 +8,7 @@ import plotly.io as pio
 import plotly.graph_objects as go
 
 from hover_template import get_hover_template
+from hover_template import get_week_template
 
 def init_figure_Season(df):
     '''
@@ -18,7 +19,7 @@ def init_figure_Season(df):
         Returns:
             fig: The figure which will display the bar chart
     '''
-    fig = px.bar(df, x='Saison', y='kWh')
+    fig = px.bar(df, x='Saison', y='kWh', color_discrete_sequence=['#599b3f'])
 
 
     # TODO : Update the template to include our new theme and set the title
@@ -34,7 +35,7 @@ def init_figure_Season(df):
 
     return fig
 
-def init_figure_Days():
+def init_figure_Days(day_df, night_df):
     '''
         Initializes the Graph Object figure used to display the bar chart.
         Sets the template to be used to "simple_white" as a base with
@@ -43,7 +44,11 @@ def init_figure_Days():
         Returns:
             fig: The figure which will display the bar chart
     '''
-    fig = px.bar([])
+    fig = go.Figure(data=[
+        go.Bar(name='Jour', x=day_df['day_of_week'], y=day_df['kWh'], marker_color='darkgoldenrod', hovertemplate = get_week_template('Jour')),
+        go.Bar(name='Nuit', x=night_df['day_of_week'], y=night_df['kWh'], marker_color='darkblue', hovertemplate = get_week_template('Nuit'))
+    ])
+    fig.update_layout(yaxis={'showgrid': True, 'gridcolor': 'lightgray', 'gridwidth': 1})
 
 
     # TODO : Update the template to include our new theme and set the title
@@ -54,7 +59,7 @@ def init_figure_Days():
         barmode='relative',
         title="Consommation moyenne d'hydroélectricité dans une semaine",
         xaxis_title="Jour de la semaine",
-        yaxis_title="Quantité (Kwh)"
+        yaxis_title="Quantité moyenne (Kwh)"
     )
 
     return fig
