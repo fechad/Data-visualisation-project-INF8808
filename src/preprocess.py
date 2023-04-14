@@ -1,9 +1,18 @@
 '''
     Contains some functions to preprocess the data used in the visualisation.
 '''
-import locale
 import pandas as pd
 import numpy as np
+
+DAYS = {
+    'Sunday': 'Dimanche',
+    'Monday': 'Lundi',
+    'Tuesday': 'Mardi',
+    'Wednesday': 'Mercredi',
+    'Thursday' : 'Jeudi',
+    'Friday' : 'Vendredi',
+    'Saturday': 'Samedi'
+}
 
 def read_data():
     my_df = pd.read_csv('../MergeData.csv',sep=';',encoding="cp1252")
@@ -41,15 +50,14 @@ def group_by_season(df):
     return avg_data_df
 
 def group_days(df):
-    locale.setlocale(locale.LC_TIME, 'fr_FR.UTF-8')
-    days = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi']
+    days = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
     df = df.loc[:, ['Date et heure', 'kWh']]
     df['Date et heure'] = pd.to_datetime(df['Date et heure'])
     
     day_df = df[df['Date et heure'].apply(is_daytime)]
 
     day_df = day_df.groupby(pd.Grouper(key='Date et heure', freq='D'))['kWh'].sum().reset_index()
-    day_df['day_of_week'] = day_df['Date et heure'].dt.strftime('%A')
+    day_df['day_of_week'] = day_df['Date et heure'].dt.day_name().apply(lambda x: DAYS[str(x)])
     day_df = day_df.groupby(pd.Grouper(key='day_of_week'))['kWh'].mean().reset_index()
     day_df['day_of_week'] = pd.Categorical(day_df['day_of_week'], categories=days, ordered=True)
     day_df = day_df.sort_values('day_of_week')
@@ -58,14 +66,14 @@ def group_days(df):
     return day_df
 
 def group_nights(df):
-    days = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi']
+    days = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
     df = df.loc[:, ['Date et heure', 'kWh']]
     df['Date et heure'] = pd.to_datetime(df['Date et heure'])
 
     night_df = df[~df['Date et heure'].apply(is_daytime)]
 
     night_df = night_df.groupby(pd.Grouper(key='Date et heure', freq='D'))['kWh'].sum().reset_index()
-    night_df['day_of_week'] = night_df['Date et heure'].dt.strftime('%A')
+    night_df['day_of_week'] = night_df['Date et heure'].dt.day_name().apply(lambda x: DAYS[str(x)])
     night_df = night_df.groupby(pd.Grouper(key='day_of_week'))['kWh'].mean().reset_index()
     night_df['day_of_week'] = pd.Categorical(night_df['day_of_week'], categories=days, ordered=True)
     night_df = night_df.sort_values('day_of_week')
