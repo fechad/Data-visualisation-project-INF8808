@@ -8,7 +8,7 @@ import plotly.io as pio
 import plotly.graph_objects as go
 
 from hover_template import get_hover_template
-from hover_template import get_week_template
+from hover_template import get_week_template, get_season_template
 
 def init_figure_Season(df):
     '''
@@ -19,6 +19,7 @@ def init_figure_Season(df):
         Returns:
             fig: The figure which will display the bar chart
     '''
+    #print(df)
     fig = px.bar(df, x='Saison', y='kWh', color_discrete_sequence=['#599b3f'])
 
 
@@ -28,10 +29,11 @@ def init_figure_Season(df):
         template=pio.templates['simple_white+Season'],
         dragmode=False,
         barmode='relative',
-        title="Consommation d'hydroélectricité à travers les saisons",
+        title="Consommation moyenne d'hydroélectricité par heure selon la saison",
         xaxis_title="Saison",
-        yaxis_title="Quantité moyenne (kWh)"
+        yaxis_title="Consommation moyenne d'hydroélectricité par heure (kWh)"
     )
+    fig.update_traces(hovertemplate=get_season_template())
 
     return fig
 
@@ -59,10 +61,12 @@ def init_figure_Days(day_df, night_df):
         barmode='relative',
         title="Consommation moyenne d'hydroélectricité dans une semaine",
         xaxis_title="Jour de la semaine",
-        yaxis_title="Quantité moyenne (Kwh)"
+        yaxis_title="Quantité moyenne (Kwh)",
+        hovermode='closest'
     )
 
     return fig
+    
 
 def draw(fig, data, mode):
     '''

@@ -28,7 +28,7 @@ df = df.drop(df[pd.DatetimeIndex(df['Date et heure']) < pd.Timestamp(2022, 6, 7,
 # print(dfF)
 pd.set_option('display.max_rows', 4)
 df.sort_values("Date et heure",inplace=True)
-print(df)
+#print(df)
 
 df.to_csv('./out.csv',index=False,index_label=False,sep=";",encoding="cp1252")
 # print("KWH min: ")

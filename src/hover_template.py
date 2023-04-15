@@ -29,6 +29,11 @@ def get_hover_template(name, mode):
  
     return "<b style='font-family: Grenze Gotisch;font-size: 24px; color: black'> {name} </b> <br><br> " + "{mode} <extra></extra>"
 
+def get_season_template():
+    return "<b style='font-family: Grenze Gotisch;font-size: 24px; color: black'> Saison : %{x}</b>" \
+            "<br style='font-family: Grenze Gotisch;font-size: 24px; color: black'> Consommation moyenne par heure : %{y} kWh" \
+            " <extra></extra>"
+
 def get_week_template(time):
     return " " + time + "<br> <b>%{x}</b> <br> " + "%{y:.2f} kWh <extra></extra>"
 

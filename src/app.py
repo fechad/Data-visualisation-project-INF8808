@@ -147,7 +147,7 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                     className='graph',
                     id='bar-chart-season'
                 )
-            ]),
+            ], id='main'),
             
             html.Div(className='viz-container', children=[
                 html.H3("Description Bar chart Days"),
@@ -187,7 +187,6 @@ def radio_updated(mode, mode_unit, figure):
     '''
     # TODO : Update the figure's data and y axis, as well as the informational
     # text indicating the mode
-    print('yello')
     new_fig = figure
     new_fig = line_chart.draw(new_fig, my_df, mode, mode_unit)
     return [new_fig]
@@ -202,6 +201,38 @@ def update_dates(start_date, end_date, figure):
     new_fig = figure
     if start_date is not None and end_date is not None:
        return line_chart.change_range(start_date, end_date, new_fig)
+    
+    return new_fig
+
+@app.callback(
+    Output('bar-chart-season', 'figure'),
+    Input('bar-chart-season', 'hoverData'),
+    State('bar-chart-season', 'figure'))
+def changeOpacity(hoverData, figure):
+    new_fig = figure
+    if hoverData is not None:
+        index = new_fig['data'][0]['x'].index(hoverData['points'][0]['x'])
+        new_fig['data'][0]['marker']['opacity'] = [0.4] * 4
+        new_fig['data'][0]['marker']['opacity'][index] = 1
+    else:
+        new_fig['data'][0]['marker']['opacity'] = [1] * 4
+    
+    return new_fig
+
+@app.callback(
+    Output('bar-chart-day', 'figure'),
+    Input('bar-chart-day', 'hoverData'),
+    State('bar-chart-day', 'figure'))
+def changeOpacity(hoverData, figure):
+    new_fig = figure
+    if hoverData is not None:
+        index = new_fig['data'][0]['x'].index(hoverData['points'][0]['x'])
+        new_fig['data'][0]['marker']['opacity'] = [0.4] * 7
+        new_fig['data'][0]['marker']['opacity'][index] = 1
+        new_fig['data'][1]['marker']['opacity'] = [0.4] * 7
+        new_fig['data'][1]['marker']['opacity'][index] = 1
+    else:
+        new_fig['data'][0]['marker']['opacity'] = [1] * 7
     
     return new_fig
 

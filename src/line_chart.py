@@ -77,7 +77,6 @@ def draw(fig, data, mode, mode_unit):
         Returns:
             fig: The figure comprising the drawn bar chart
     '''
-    print(mode_unit)
     fig = go.Figure(fig)  # conversion back to Graph Object
     # TODO : Update the figure's data according to the selected mode
     tenant_data, homeowner_data = preprocess.get_separate_data(data)
@@ -107,12 +106,8 @@ def draw(fig, data, mode, mode_unit):
             data = tenant_avg_hour
         else:
             data = homeowner_avg_hour
-    
-    #print(fig.layout)
         
     columns = data.columns
-    print(columns)
-    print(data)
     fig.add_trace(go.Scatter(
         x=data[columns[0]], 
         y=data[columns[1]],
@@ -120,6 +115,5 @@ def draw(fig, data, mode, mode_unit):
     fig.update_traces(hovertemplate = hover.get_toggle_template(mode_unit))
     fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='#e1dfde')
     #fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='#e1dfde')
-    #print(fig.data[0])
         
     return fig
