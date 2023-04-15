@@ -35,6 +35,15 @@ def avg_consumption_per_temp(tenant_df, homeowner_df):
     homeowner_df_avg = homeowner_df.groupby(homeowner_df['Température moyenne (°C)'], as_index=False)['kWh'].mean()
     return tenant_df_avg, homeowner_df_avg
 
+def avg_consumption_per_hour(tenant_df, homeowner_df):
+    tenant_df_avg = tenant_df.copy()
+    tenant_df_avg['Date et heure'] = tenant_df_avg['Date et heure'].str.slice(start=11, stop=13)
+    tenant_df_avg = tenant_df_avg.groupby(tenant_df_avg['Date et heure'], as_index=False)['kWh'].mean()
+    homeowner_df_avg = homeowner_df.copy()
+    homeowner_df_avg['Date et heure'] = homeowner_df_avg['Date et heure'].str.slice(start=11, stop=13)
+    homeowner_df_avg = homeowner_df_avg.groupby(homeowner_df_avg['Date et heure'], as_index=False)['kWh'].mean()
+    return tenant_df_avg, homeowner_df_avg
+
 def group_by_season(df):
     #source for seasons: https://nrc.canada.ca/en/certifications-evaluations-standards/canadas-official-time/3-when-do-seasons-start
     df = df.sort_values(['Date et heure'])

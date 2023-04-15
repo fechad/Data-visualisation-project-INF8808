@@ -1,7 +1,7 @@
 '''
     Provides the template for the hover tooltips.
 '''
-from constant import MODES
+import constant as modes
 
 
 def get_hover_template(name, mode):
@@ -31,3 +31,19 @@ def get_hover_template(name, mode):
 
 def get_week_template(time):
     return " " + time + "<br> <b>%{x}</b> <br> " + "%{y:.2f} kWh <extra></extra>"
+
+def get_compare_template():
+    return "<b style='font-family: Grenze Gotisch;font-size: 24px; color: black'> %{customdata[0]} </b>" + \
+        "<br style='font-family: Grenze Gotisch;font-size: 24px; color: black'> %{customdata[1]}" \
+        "<br style='font-family: Grenze Gotisch;font-size: 24px; color: black'> %{customdata[2]} kWh" \
+        " <extra></extra>"
+
+def get_toggle_template(mode_unit):
+    if(mode_unit == 'Température'):
+        return "<b style='font-family: Grenze Gotisch;font-size: 24px; color: black'> Température :  %{x} °C</b>" \
+            "<br style='font-family: Grenze Gotisch;font-size: 24px; color: black'> Consommation moyenne : %{y} kWh" \
+            " <extra></extra>"
+    else:
+        return "<b style='font-family: Grenze Gotisch;font-size: 24px; color: black'> Heure :  %{x}h</b>" \
+            "<br style='font-family: Grenze Gotisch;font-size: 24px; color: black'> Consommation moyenne : %{y} kWh" \
+            " <extra></extra>" 

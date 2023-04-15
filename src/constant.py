@@ -4,3 +4,4 @@
 '''
 
 MODES = dict(tenant='Locataire', homeowner='Propriétaire')
+MODES_UNITS = dict(temp='Température', hour='Heure')

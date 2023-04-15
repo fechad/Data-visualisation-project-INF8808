@@ -24,7 +24,7 @@ import bar_chart
 import line_chart
 
 from template import create_template
-from constant import MODES
+from constant import MODES, MODES_UNITS
 from datetime import date
 
 
@@ -116,6 +116,20 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                         ],
                         value=MODES['homeowner']
                     )
+                ]),
+                html.Div(children=[
+                    dcc.RadioItems(
+                        id='radio-items2',
+                        options=[
+                             dict(
+                                label=MODES_UNITS['temp'],
+                                value=MODES_UNITS['temp']),
+                            dict(
+                                label=MODES_UNITS['hour'],
+                                value=MODES_UNITS['hour']),
+                        ],
+                        value=MODES_UNITS['temp']
+                    )
                 ])
             ]),
             
@@ -157,9 +171,10 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
 @app.callback(
     [Output('line-chart-toggle', 'figure')],
     [Input('radio-items', 'value')],
+    [Input('radio-items2', 'value')],
     [State('line-chart-toggle', 'figure')]
 )
-def radio_updated(mode, figure):
+def radio_updated(mode, mode_unit, figure):
     '''
         Updates the application after the radio input is modified.
 
@@ -172,8 +187,9 @@ def radio_updated(mode, figure):
     '''
     # TODO : Update the figure's data and y axis, as well as the informational
     # text indicating the mode
+    print('yello')
     new_fig = figure
-    new_fig = line_chart.draw(new_fig, my_df, mode)
+    new_fig = line_chart.draw(new_fig, my_df, mode, mode_unit)
     return [new_fig]
 
 @app.callback(
@@ -198,7 +214,7 @@ night_df = preprocess.group_nights(my_df)
 create_template()
 fig_Compare = line_chart.init_figure_Compare(my_df)
 fig_Toggle = line_chart.init_figure_Toggle()
-fig_Toggle = line_chart.draw(fig_Toggle, my_df, MODES['homeowner'])
+fig_Toggle = line_chart.draw(fig_Toggle, my_df, MODES['homeowner'], MODES_UNITS['temp'])
 fig_Season = bar_chart.init_figure_Season(season_df)
 fig_Days = bar_chart.init_figure_Days(day_df, night_df)
 
