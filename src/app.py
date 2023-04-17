@@ -100,7 +100,7 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                 )
             ]),
             html.Div(className='text', children=[
-                html.H2("Comment la température affecte la consommation d'électricité des québécois ?"),
+                html.H2("Comment la température affecte la consommation d'électricité des québécois?"),
                 html.H3("""Cette visualisation nous montre la consommation moyenne d'hydroélectricité du propriétaire et du locataire selon la température. 
                             Comme on peut le constater dans le graphique en allant mettre le curseur sur les points, la plus grande moyenne d'énergie consommée 
                             du propriétaire se situe à -24 °C, alors que pour le locataire, sa plus grande moyenne de consommation énergétique se situe quand 
@@ -152,7 +152,6 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                         )
             ],),
             html.Div(className='viz-container', children=[
-                html.H3("Description Bar chart Season"),
                 dcc.Graph(
                     figure=figBarChartSeason,
                     config=dict(
@@ -180,7 +179,6 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
             ],),
             
             html.Div(className='viz-container', children=[
-                html.H3("Description Bar chart Days"),
                 dcc.Graph(
                     figure=figBarChartDays,
                     config=dict(
@@ -207,7 +205,6 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                         )
             ],),
             html.Div(className='viz-container', children=[
-                html.H3("Description"),
                 dcc.Graph(
                     figure=figLineChartHour,
                     config=dict(
