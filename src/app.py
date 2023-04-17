@@ -66,7 +66,10 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
         ]),
         html.Main(children=[
             html.Div(className='viz-container', children=[
-                html.H3("Description Line chart Compare"),
+                html.H3("Le graphique suivant montre la consommation d'hydroélectricité en 2022 d'un propriétaire habitant à Laval et d'un locataire habitant à Montréal selon la date et l'heure de la journée. Le line chart nous permet ici de comparer la consommation en kWh des 2 individus pour une date et heure donnée, ce qui nous permet directement de répondre aux questions suivantes:"),
+                html.H3("- Est-ce qu’il existe une grande différence entre un propriétaire et un locataire sur la consommation électrique au cours d’une année?"),
+                html.H3("- Y-a-t-il une différence de consommation entre les gens habitant en banlieue et ceux à Montréal au cours d’une année?"),
+                html.H3("On voit alors ici que le propriétaire habitant à Laval semble consommer beaucoup plus d'énergie que le locataire habitant à Montréal. On peut donc dire que selon nos données, un locataire dépenses moins d'électricité qu'un propriétaire pendant presque toute l'année et un habitant de Laval dépenses plus en électricité qu'un habitant de Montréal au courant de l'année. Cependant, pour être certain de ses réponses, plus de données venant d'autres personnes seraient nécessaires."),
                 dcc.DatePickerRange(
                     id='dates',
                     min_date_allowed=date(2022, 6, 7),
@@ -90,7 +93,10 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
             ]),
             
             html.Div(className='viz-container', children=[
-                html.H3("Description Line chart Toggle"),
+                html.H3("En premier temps, cette visualisation nous montre la consommation moyenne d'hydroélectricité du propriétaire et du locataire selon la température. le line chart nous permet de facilement répondre à la question suivante: "),
+                html.H3("- À quelle température atteint-on un pic de consommation électrique?"),
+                html.H3("Comme on peut le constater dans le graphique en allant mettre le curseur sur les points, la plus grande moyenne d'énergie consommée du propriétaire se situe à -24 °C, alors que pour le locataire, sa plus grande moyenne de consommation énergétique se situe quand la température est à 31 °C. Plusieurs raisons peuvent influence ces résultats, alors il nous faudrais plus d'information pour savoir la raison de cette différence entre les 2 individus."),
+                html.H3("- Dans un deuxième temps, le graphique nous permet de changer l'axe vertical pour l'heure de la journée plutôt que la température. "),
                 dcc.Graph(
                     figure=figLineChartToggle,
                     config=dict(
