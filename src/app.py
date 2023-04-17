@@ -125,7 +125,18 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                     )
                 ]),
             ]),
-            
+            html.Div(className='text', children=[
+                html.H3(
+                    """
+                    Une autre façon de visualiser les données selon la température est d'utiliser les saisons,
+                      chacune étant marqué par un climat particulier. Nous avonc donc calculer la consommation moyenne en 1h pour chaque saison. En regardant le diagramme à barre qui suit,
+                        on constate sans surprise que l'hiver coûte beaucoup plus cher aux québecois en électricité, étant donné que c'est la saison la plus froide.
+                        Suivant le même raisonnement, l'automne serait la prochaine saison en terme de consommation électrique. 
+                        Par contre, ce qui est surprenant, nous consommons plus en été, bien que ce soit la saison la plus chaude. Une explication possible
+                        serait l'utilisation de l'air climatisée, qui ne serait pas utiliser au printemps.
+                    """
+                        )
+            ],),
             html.Div(className='viz-container', children=[
                 html.H3("Description Bar chart Season"),
                 dcc.Graph(
@@ -142,10 +153,16 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                 )
             ], id='main'),
             html.Div(className='text', children=[
-                html.H1("Quel est la consommation électrique d'une personne au cours de la journée?"),
-                html.H1(
-        "Le graphique suivant nous renseigne sur la consomation moyenne d'un utilsateur dans sa semaine, afin d'atténuer les effets des données extrêmes et de montrer une utilisation "
-        )
+                html.H2("Quel est la consommation électrique d'une personne au cours de la journée?"),
+                html.H3(
+                    """Le graphique suivant nous renseigne sur la consomation moyenne d'un utilsateur dans sa semaine, 
+                        afin de prendre en compte les données de nos 2 types d'utilisateurs, locataire et propriétaire. 
+                        La première chose que nous constatons est que les jours de fin de semaine indiquent une plus grande consommation électrique,
+                          ce qui n'est pas tant surprenant étant donnée que nous sommes plus souvent à la maison durant la fin de semaine. 
+                          On constate aussi que bien que la consommation soit plus grande le jour, cette différence n'est pas aussi marqué qu'on pourrait le croire (à peine le double), probablement à cause du 
+                          chauffage nécessaire pour chauffer l'habitat pendant la nuit. Finalement, on peut voir que la consommation durant la journée
+                          est relativement stable d'une journée à l'autre, restant entre 12kWh et 14kWh."""
+                        )
             ],),
             
             html.Div(className='viz-container', children=[
@@ -163,6 +180,18 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                     id='bar-chart-day'
                 ),
             ]),
+
+            html.Div(className='text', children=[
+                html.H3(
+                    """
+                    Nous terminons cette page en plongeant davantage et en observant la consommation électrique moyenne d'un utilisateur
+                      au cours d'une journée. On constate un énorme pic à minuit. En temps normal, on ne devrait pas consommer autant pendant la nuit.
+                     Il est important de mentionner que nous n'avons pas beaucoup d'utilisateur, et que l'un d'entre eux travaille de nuit, 
+                     cela pourrait donc expliquer les données. Sinon, on constate un autre pic en plein milieu de la journée,
+                       à midi, qui semble beaucoup plus naturel.
+                    """
+                        )
+            ],),
             html.Div(className='viz-container', children=[
                 html.H3("Description"),
                 dcc.Graph(

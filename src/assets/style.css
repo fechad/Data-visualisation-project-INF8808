@@ -76,7 +76,16 @@ button:hover, button:active {
 }
 
 .text {
+    text-align: justify;
+    padding: 0 10vw;
+
+}
+
+H2 {
     text-align: center;
+    font-size: 36px;
+    color: #000;
+    font-weight: 900;
 }
 
 .panel {
