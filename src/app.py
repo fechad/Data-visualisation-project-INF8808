@@ -154,6 +154,12 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                     id='bar-chart-season'
                 )
             ], id='main'),
+            html.Div(className='text', children=[
+                html.H1("Quel est la consommation électrique d'une personne au cours de la journée?"),
+                html.H1(
+        "Le graphique suivant nous renseigne sur la consomation moyenne d'un utilsateur dans sa semaine, afin d'atténuer les effets des données extrêmes et de montrer une utilisation "
+        )
+            ],),
             
             html.Div(className='viz-container', children=[
                 html.H3("Description Bar chart Days"),

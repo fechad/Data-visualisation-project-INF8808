@@ -75,6 +75,10 @@ button:hover, button:active {
     height: 100%;
 }
 
+.text {
+    text-align: center;
+}
+
 .panel {
     display: flex;
     justify-content: space-between;
