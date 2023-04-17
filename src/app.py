@@ -50,7 +50,7 @@ def prep_data():
     return
 
 
-def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,figBarChartDays):
+def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,figBarChartDays, figLineChartHour):
     '''
         Generates the HTML layout representing the app.
 
@@ -96,7 +96,8 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                 html.H3("En premier temps, cette visualisation nous montre la consommation moyenne d'hydroélectricité du propriétaire et du locataire selon la température. le line chart nous permet de facilement répondre à la question suivante: "),
                 html.H3("- À quelle température atteint-on un pic de consommation électrique?"),
                 html.H3("Comme on peut le constater dans le graphique en allant mettre le curseur sur les points, la plus grande moyenne d'énergie consommée du propriétaire se situe à -24 °C, alors que pour le locataire, sa plus grande moyenne de consommation énergétique se situe quand la température est à 31 °C. Plusieurs raisons peuvent influence ces résultats, alors il nous faudrais plus d'information pour savoir la raison de cette différence entre les 2 individus."),
-                html.H3("- Dans un deuxième temps, le graphique nous permet de changer l'axe vertical pour l'heure de la journée plutôt que la température. "),
+                html.H3("Dans un deuxième temps, le graphique nous permet de changer l'axe vertical pour l'heure de la journée plutôt que la température. Ce line chart nous permet alors de répondre à la question suivante: "),
+                html.H3("- À quelle température atteint-on un pic de consommation électrique?"),
                 dcc.Graph(
                     figure=figLineChartToggle,
                     config=dict(
@@ -123,20 +124,6 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                         value=MODES['homeowner']
                     )
                 ]),
-                html.Div(children=[
-                    dcc.RadioItems(
-                        id='radio-items2',
-                        options=[
-                             dict(
-                                label=MODES_UNITS['temp'],
-                                value=MODES_UNITS['temp']),
-                            dict(
-                                label=MODES_UNITS['hour'],
-                                value=MODES_UNITS['hour']),
-                        ],
-                        value=MODES_UNITS['temp']
-                    )
-                ])
             ]),
             
             html.Div(className='viz-container', children=[
@@ -174,8 +161,37 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                     ),
                     className='graph',
                     id='bar-chart-day'
-                )
-            ])
+                ),
+            ]),
+            html.Div(className='viz-container', children=[
+                html.H3("Description"),
+                dcc.Graph(
+                    figure=figLineChartHour,
+                    config=dict(
+                        scrollZoom=False,
+                        showTips=False,
+                        showAxisDragHandles=False,
+                        doubleClick=False,
+                        displayModeBar=False
+                    ),
+                    className='graph',
+                    id='line-chart-hour'
+                ),
+                html.Div(children=[
+                    dcc.RadioItems(
+                        id='radio-items2',
+                        options=[
+                             dict(
+                                label=MODES['homeowner'],
+                                value=MODES['homeowner']),
+                            dict(
+                                label=MODES['tenant'],
+                                value=MODES['tenant']),
+                        ],
+                        value=MODES['homeowner']
+                    )
+                ]),
+            ]),
         ]),
     ])
 
@@ -183,10 +199,9 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
 @app.callback(
     [Output('line-chart-toggle', 'figure')],
     [Input('radio-items', 'value')],
-    [Input('radio-items2', 'value')],
     [State('line-chart-toggle', 'figure')]
 )
-def radio_updated(mode, mode_unit, figure):
+def radio_updated(mode, figure):
     '''
         Updates the application after the radio input is modified.
 
@@ -200,7 +215,29 @@ def radio_updated(mode, mode_unit, figure):
     # TODO : Update the figure's data and y axis, as well as the informational
     # text indicating the mode
     new_fig = figure
-    new_fig = line_chart.draw(new_fig, my_df, mode, mode_unit)
+    new_fig = line_chart.draw(new_fig, my_df, mode, MODES_UNITS['temp'])
+    return [new_fig]
+
+@app.callback(
+    [Output('line-chart-hour', 'figure')],
+    [Input('radio-items2', 'value')],
+    [State('line-chart-hour', 'figure')]
+)
+def radio_updated2(mode, figure):
+    '''
+        Updates the application after the radio input is modified.
+
+        Args:
+            mode: The mode selected in the radio input.
+            figure: The figure as it is currently displayed
+        Returns:
+            new_fig: The figure to display after the change of radio input
+            mode: The new mode
+    '''
+    # TODO : Update the figure's data and y axis, as well as the informational
+    # text indicating the mode
+    new_fig = figure
+    new_fig = line_chart.draw(new_fig, my_df, mode, MODES_UNITS['hour'])
     return [new_fig]
 
 @app.callback(
@@ -260,7 +297,9 @@ fig_Toggle = line_chart.init_figure_Toggle()
 fig_Toggle = line_chart.draw(fig_Toggle, my_df, MODES['homeowner'], MODES_UNITS['temp'])
 fig_Season = bar_chart.init_figure_Season(season_df)
 fig_Days = bar_chart.init_figure_Days(day_df, night_df)
+fig_hour = line_chart.init_figure_Toggle()
+fig_hour = line_chart.draw(fig_hour, my_df, MODES['homeowner'], MODES_UNITS['hour'])
 
-app.layout = init_app_layout(fig_Compare,fig_Toggle,fig_Season,fig_Days)
+app.layout = init_app_layout(fig_Compare,fig_Toggle,fig_Season,fig_Days, fig_hour)
 preprocess.filter(my_df)
 
