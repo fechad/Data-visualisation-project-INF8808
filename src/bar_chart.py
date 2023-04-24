@@ -61,46 +61,9 @@ def init_figure_Days(day_df, night_df):
         barmode='relative',
         title="Consommation moyenne d'hydroélectricité dans une semaine",
         xaxis_title="Jour de la semaine",
-        yaxis_title="Quantité moyenne (Kwh)",
+        yaxis_title="Quantité moyenne (kWh)",
         hovermode='closest'
     )
 
     return fig
     
-
-def draw(fig, data, mode):
-    '''
-        Draws the bar chart.
-
-        Arg:
-            fig: The figure comprising the bar chart
-            data: The data to be displayed
-            mode: Whether to display the count or percent data.
-        Returns:
-            fig: The figure comprising the drawn bar chart
-    '''
-    fig = go.Figure(fig)  # conversion back to Graph Object
-    # TODO : Update the figure's data according to the selected mode
-
-    if mode == 'Count':
-        mode_chosen = 'PlayerLine'
-        hover_text = "%{y} lines"
-    else: 
-        mode_chosen = 'PlayerPercent'
-        hover_text = "%{y:.2f} % of lines"
-    
-    fig.data = []
-    players = data.groupby("Player")
-    
-    for player in players:
-        playerdf = player[1] # Get the dataframe 0 is index of group and 1 is Dataframe
-        acts = playerdf['Act']
-        xLabel = acts.transform(lambda x: 'Act '+ str(int(x)))
-        
-        fig.add_trace(go.Bar(
-            x=xLabel, 
-            y=playerdf[mode_chosen],
-            name=player[0],
-            hovertemplate = get_hover_template(player[0],mode).format(name=player[0], mode=hover_text)))
-        
-    return fig
