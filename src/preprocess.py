@@ -31,17 +31,17 @@ def get_separate_data(df):
     return tenant_df, homeowner_df
 
 def avg_consumption_per_temp(tenant_df, homeowner_df):
-    tenant_df_avg = tenant_df.groupby(tenant_df['Température moyenne (°C)'], as_index=False)['kWh'].mean()
-    homeowner_df_avg = homeowner_df.groupby(homeowner_df['Température moyenne (°C)'], as_index=False)['kWh'].mean()
+    tenant_df_avg = tenant_df.groupby(tenant_df['Température moyenne (°C)'], as_index=False)['kWh'].mean().round(2)
+    homeowner_df_avg = homeowner_df.groupby(homeowner_df['Température moyenne (°C)'], as_index=False)['kWh'].mean().round(2)
     return tenant_df_avg, homeowner_df_avg
 
 def avg_consumption_per_hour(tenant_df, homeowner_df):
     tenant_df_avg = tenant_df.copy()
     tenant_df_avg['Date et heure'] = tenant_df_avg['Date et heure'].str.slice(start=11, stop=13)
-    tenant_df_avg = tenant_df_avg.groupby(tenant_df_avg['Date et heure'], as_index=False)['kWh'].mean()
+    tenant_df_avg = tenant_df_avg.groupby(tenant_df_avg['Date et heure'], as_index=False)['kWh'].mean().round(2)
     homeowner_df_avg = homeowner_df.copy()
     homeowner_df_avg['Date et heure'] = homeowner_df_avg['Date et heure'].str.slice(start=11, stop=13)
-    homeowner_df_avg = homeowner_df_avg.groupby(homeowner_df_avg['Date et heure'], as_index=False)['kWh'].mean()
+    homeowner_df_avg = homeowner_df_avg.groupby(homeowner_df_avg['Date et heure'], as_index=False)['kWh'].mean().round(2)
     return tenant_df_avg, homeowner_df_avg
 
 def group_by_season(df):
@@ -55,9 +55,8 @@ def group_by_season(df):
     df['Saison'] = np.where((df['Date et heure'] >= '2022-12-22') & (df['Date et heure'] <= '2023-03-20'), 'Hiver', df['Saison'])
     df['Saison'] = np.where((df['Date et heure'] >= '2023-03-21') & (df['Date et heure'] <= '2023-06-21'), 'Été', df['Saison'])
     df = df[df['Saison'] != '']
-    avg_data_df = df.groupby(df['Saison'], as_index=False)[['kWh', 'Température moyenne (°C)']].mean()
-    avg_data_df = avg_data_df.round(2)
-    
+    avg_data_df = df.groupby(df['Saison'], as_index=False)[['kWh', 'Température moyenne (°C)']].mean().round(2)
+
     return avg_data_df
 
 def group_days(df):

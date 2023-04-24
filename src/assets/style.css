@@ -82,7 +82,7 @@ button:hover, button:active {
 }
 
 H2 {
-    text-align: center;
+    text-align: start;
     font-size: 36px;
     color: #000;
     font-weight: 900;
