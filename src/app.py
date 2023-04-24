@@ -15,9 +15,10 @@
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
-from dash.dependencies import Input, Output, State
+from dash.dependencies import Input, Output, State, ALL
 
 import pandas as pd
+from dash.exceptions import PreventUpdate
 
 import preprocess
 import bar_chart
@@ -52,13 +53,24 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
         Returns:
             The HTML structure of the app's web page.
     '''
+    navBarSection = [
+        {'key': 'Residential comparison', 'id': '#residence'},
+        {'key': 'Temperature', 'id': '#temperature'},
+        {'key': 'Seasons', 'id': '#season'},
+        {'key': 'Week days', 'id': '#day'},
+        {'key': 'Time of day', 'id': '#time'}
+    ]
     return html.Div(className='content', children=[
+        html.Nav([
+            html.A(section['key'], href=section['id'], className='navigation-button')
+            for section in navBarSection
+        ], className='navbar ', id='navbar'),
         html.Header(children=[
             html.H1('Équipe 17'),
             html.H2('Consommation énergétique d’habitants de la province de Québec')
         ]),
         html.Main(children=[
-            html.Div(className='text', children=[
+            html.Div(className='text section', id='residence', children=[
                 html.H2("Est-ce que le lieu de résidence affecte la consommation électrique des québécois?"),
                 html.H3("""Le graphique suivant montre la consommation d'hydroélectricité de juin 2022 à février 2023 d'un propriétaire habitant à Laval et d'un locataire habitant
                          à Montréal selon la date et l'heure de la journée. On voit alors ici que le propriétaire habitant à Laval semble consommer 
@@ -92,7 +104,7 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                     id='line-chart-compare'
                 )
             ]),
-            html.Div(className='text', children=[
+            html.Div(className='text section', id='temperature', children=[
                 html.H2("Comment la température affecte la consommation d'électricité des québécois?"),
                 html.H3("""Cette visualisation nous montre la consommation moyenne d'hydroélectricité du propriétaire et du locataire selon la température. 
                             Comme on peut le constater dans le graphique en allant mettre le curseur sur les points, la plus grande moyenne d'énergie consommée 
@@ -132,7 +144,7 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                     )
                 ]),
             ]),
-            html.Div(className='text', children=[
+            html.Div(className='text section', id='season', children=[
                 html.H3(
                     """
                     Une autre façon de visualiser les données selon la température est d'utiliser les saisons,
@@ -158,7 +170,7 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                     id='bar-chart-season'
                 )
             ], id='main'),
-            html.Div(className='text', children=[
+            html.Div(className='text section', id='day', children=[
                 html.H2("Quelle est la consommation électrique d'une personne au cours de la journée?"),
                 html.H3(
                     """Le graphique suivant nous renseigne sur la consomation moyenne d'un utilsateur dans sa semaine, 
@@ -186,7 +198,7 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                 ),
             ]),
 
-            html.Div(className='text', children=[
+            html.Div(className='text section', id='time', children=[
                 html.H3(
                     """
                     Nous terminons cette page en plongeant davantage et en observant la consommation électrique moyenne d'un utilisateur
@@ -226,8 +238,34 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                 ]),
             ]),
         ]),
+        dcc.Store(id='navbar-height', data=0)
     ])
 
+@app.callback(
+    Output('navbar', 'className'),
+    Input('scroll-position', 'children')
+)
+def update_navbar(scroll_position):
+    if scroll_position is None:
+        raise PreventUpdate
+    scroll_position = int(scroll_position)
+    if scroll_position > 50:
+        return 'navbar scroll'
+    else:
+        return 'navbar '
+
+app.clientside_callback(
+    """
+    function scrollToSection(section) {
+        const selectedSection = document.querySelector(section);
+        const position = selectedSection.offsetTop;
+        window.scrollTo({ top: position, behavior: 'smooth' });
+    }
+    """,
+    Output('scroll-position', 'children'),
+    Input({'type': 'navbar-link', 'index': ALL}, 'n_clicks'),
+    State({'type': 'navbar-link', 'index': ALL}, 'href'),
+)
 
 @app.callback(
     [Output('line-chart-toggle', 'figure')],
