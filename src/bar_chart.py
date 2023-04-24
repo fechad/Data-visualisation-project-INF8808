@@ -34,6 +34,7 @@ def init_figure_Season(df):
         yaxis_title="Consommation moyenne d'hydroélectricité par heure (kWh)"
     )
     fig.update_traces(hovertemplate=get_season_template())
+    fig.update_layout(yaxis={'showgrid': True, 'gridcolor': 'lightgray', 'gridwidth': 1})
 
     return fig
 
