@@ -20,7 +20,7 @@ def init_figure_Season(df):
             fig: The figure which will display the bar chart
     '''
     #print(df)
-    fig = px.bar(df, x='Saison', y='kWh', color_discrete_sequence=['#599b3f'])
+    fig = px.bar(df, x='Saison', y='kWh', color_discrete_sequence=['darkblue'])
 
 
     # TODO : Update the template to include our new theme and set the title

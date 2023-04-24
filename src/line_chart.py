@@ -14,7 +14,7 @@ def init_figure_Compare(df):
         Returns:
             fig: The figure which will display the bar chart
     '''
-    fig = px.line(df, x='Date et heure', y='kWh', color='Contrat', custom_data=['Contrat', 'Date et heure', 'kWh'])
+    fig = px.line(df, x='Date et heure', y='kWh', color='Contrat', custom_data=['Contrat', 'Date et heure', 'kWh'], color_discrete_sequence=['darkblue','darkgoldenrod'])
 
     # TODO : Update the template to include our new theme and set the title
 
@@ -25,8 +25,9 @@ def init_figure_Compare(df):
         title="Consommation d'hydroélectricité en 2022",
         xaxis_title="Date",
         yaxis_title="Quantité (kWh)",
+        yaxis_range=[0, 4],
         xaxis_range=['2022-07-01', '2022-08-01'],
-        legend_title=''
+        legend_title='',
     )
 
     fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='#e1dfde')
@@ -59,10 +60,10 @@ def init_figure_Toggle():
         dragmode=False,
         title="Consommation moyenne d'hydroélectricité selon la température",
         xaxis_title="Température",
-        yaxis_title="Quantité moyenne (kWh)"
+        yaxis_title="Quantité moyenne (kWh)",
     )
     fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='#e1dfde')
-    #fig.update_traces(hovertemplate=hover.get_toggle_template())
+    fig.update_traces(line_color='darkblue')
 
     return fig
 
@@ -112,8 +113,7 @@ def draw(fig, data, mode, mode_unit):
         x=data[columns[0]], 
         y=data[columns[1]],
        ))
-    fig.update_traces(hovertemplate = hover.get_toggle_template(mode_unit))
+    fig.update_traces(hovertemplate = hover.get_toggle_template(mode_unit), line_color='darkblue')
     fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='#e1dfde')
-    #fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='#e1dfde')
         
     return fig

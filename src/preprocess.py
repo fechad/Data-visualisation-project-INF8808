@@ -55,7 +55,7 @@ def group_by_season(df):
     df['Saison'] = np.where((df['Date et heure'] >= '2022-12-22') & (df['Date et heure'] <= '2023-03-20'), 'Hiver', df['Saison'])
     df['Saison'] = np.where((df['Date et heure'] >= '2023-03-21') & (df['Date et heure'] <= '2023-06-21'), 'Été', df['Saison'])
     df = df[df['Saison'] != '']
-    avg_data_df = df.groupby(df['Saison'], as_index=False)['kWh', 'Température moyenne (°C)'].mean()
+    avg_data_df = df.groupby(df['Saison'], as_index=False)[['kWh', 'Température moyenne (°C)']].mean()
     return avg_data_df
 
 def group_days(df):

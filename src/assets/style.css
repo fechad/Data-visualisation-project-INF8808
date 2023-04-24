@@ -109,3 +109,7 @@ H2 {
 #mode {
     font-weight: bold;
 }
+
+#padding {
+    padding-bottom: 10vh;
+}

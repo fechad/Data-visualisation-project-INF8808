@@ -40,13 +40,6 @@ def prep_data():
         Returns:
             A pandas dataframe containing the preprocessed data.
     '''
-    # dataframe = pd.read_csv('./assets/data/romeo_and_juliet.csv')
-
-    # proc_data = preprocess.summarize_lines(dataframe)
-    # proc_data = preprocess.replace_others(proc_data)
-    # proc_data = preprocess.clean_names(proc_data)
-
-    # return proc_data
     return
 
 
@@ -66,7 +59,7 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
         ]),
         html.Main(children=[
             html.Div(className='text', children=[
-                html.H2("Est-ce que le lieu de résidence affecte la consommation électrique des québécois ?"),
+                html.H2("Est-ce que le lieu de résidence affecte la consommation électrique des québécois?"),
                 html.H3("""Le graphique suivant montre la consommation d'hydroélectricité de juin 2022 à février 2023 d'un propriétaire habitant à Laval et d'un locataire habitant
                          à Montréal selon la date et l'heure de la journée. On voit alors ici que le propriétaire habitant à Laval semble consommer 
                          beaucoup plus d'énergie que le locataire habitant à Montréal. On peut donc dire que selon nos données, un locataire dépenses 
@@ -166,7 +159,7 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                 )
             ], id='main'),
             html.Div(className='text', children=[
-                html.H2("Quel est la consommation électrique d'une personne au cours de la journée?"),
+                html.H2("Quelle est la consommation électrique d'une personne au cours de la journée?"),
                 html.H3(
                     """Le graphique suivant nous renseigne sur la consomation moyenne d'un utilsateur dans sa semaine, 
                         afin de prendre en compte les données de nos 2 types d'utilisateurs, locataire et propriétaire. 
@@ -204,7 +197,7 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                     """
                         )
             ],),
-            html.Div(className='viz-container', children=[
+            html.Div(className='viz-container', id='padding', children=[
                 dcc.Graph(
                     figure=figLineChartHour,
                     config=dict(
