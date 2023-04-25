@@ -73,13 +73,15 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
             html.Div(className='welcome', children=[
                 html.P(
                     """
-                    La province du Québec est l’un des plus grands producteurs d’électricité au Canada avec le tiers de de la totalité de la génération d’électricité 
-                    produite par celle-ci. En effet, le Québec a de nombreuses sources d’hydroélectricité avec 130 000 rivières et ruisseaux l’entourant et qui contiennent 
-                    environ 40% de l’eau du Canada. Il n’est donc pas étonnant de constater les taux peu élevés que Hydro-Québec offre: 6,319 sous pour les premiers 40 
-                    kilowattheures d’une journée pour les habitants de la catégorie “Rate D”, soit le taux pour les consommateurs résidentiels ou agricoles.
-                    Il est connu que les taux de Hydro-Québec sont bas, mais il serait intéressant d’observer s’il y a des grandes variations en termes de consommation lorsqu’on 
-                    est locataire de son appartement ou propriétaire de condo pour différents étudiants universitaires de la région de Montréal. Surtout depuis la pandémie, plusieurs 
-                    travaillent à distance ou ont des cours à distance. Il serait donc intéressant d’en voir les différences de consommation électrique s’il y en a. 
+                    La province du Québec est l’un des plus grands producteurs d’électricité au Canada avec un tiers 
+                    de la totalité de la génération d’électricité produite par celle-ci. En effet, le Québec dispose de 
+                    nombreuses sources d'hydroélectricité, avec 130 000 rivières et ruisseaux entourant la région et contenant 
+                    environ 40% de l'eau du Canada. Il n’est donc pas étonnant de constater les taux peu élevés que propose Hydro-Québec : 
+                    6,319 sous pour les premiers 40 kilowattheures d’une journée pour les habitants de la catégorie “Rate D”, soit le tarif 
+                    pour les consommateurs résidentiels ou agricoles. Il est connu que les tarifs d'Hydro-Québec sont bas, mais il serait intéressant 
+                    d’observer s’il y a de grandes variations en termes de consommation électrique lorsqu'on est locataire de son appartement ou propriétaire 
+                    d'un condo pour différents étudiants universitaires de la région de Montréal. Surtout depuis la pandémie, plusieurs travaillent à distance ou 
+                    ont des cours en ligne. Il serait donc intéressant de voir s'il y a des différences de consommation électrique.
                     """
                 ),
                 html.Img(src='/assets/manic.jpg', width='70%')
@@ -87,15 +89,18 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
             ]),
             html.Div(className='text section', id='residence', children=[
                 html.H2("Est-ce que le lieu de résidence affecte la consommation électrique des québécois?"),
-                html.P("""Le graphique suivant montre la consommation d'hydroélectricité de juin 2022 à février 2023 d'un propriétaire habitant à Laval et d'un locataire habitant
-                         à Montréal selon la date et l'heure de la journée. On voit alors ici que le propriétaire habitant à Laval semble consommer 
-                         beaucoup plus d'énergie que le locataire habitant à Montréal. On peut donc dire que selon nos données, un locataire dépenses 
-                         moins d'électricité qu'un propriétaire pendant presque toute l'année et un habitant de Laval dépenses plus en électricité 
-                         qu'un habitant de Montréal au courant de l'année. Cependant, vu que l'on a seulement les données pour 2 individus, la fiabilité 
-                         de nos réponses n'est pas certaine. La raison d'une telle différence de consommation électrique est probablement liée à des valeurs 
-                         externes comme ce que le locataire paie et ne paie pas de sa facture électrique, la différence de grandeur ou le nombre de personnes 
-                         qui vivent dans la résidence.
-                         """),
+                html.P(
+                """
+                        Le graphique ci-dessous représente la consommation d'hydroélectricité de juin 2022 à février 2023 d'un propriétaire
+                        habitant à Laval et d'un locataire habitant à Montréal en fonction de la date et de l'heure de la journée. D'après ce graphique, 
+                        il semble que le propriétaire habitant à Laval consomme beaucoup plus d'énergie que le locataire habitant à Montréal. Ces données 
+                        suggèrent donc que, en moyenne, un locataire dépense moins d'électricité qu'un propriétaire tout au long de l'année et qu'un habitant
+                        de Laval dépense plus en électricité qu'un habitant de Montréal. Cependant, il est important de noter que ces conclusions sont basées
+                        sur les données de seulement deux individus, donc elles ne sont pas nécessairement représentatives de l'ensemble de la population. La 
+                        différence de consommation électrique entre les deux personnes pourrait être influencée par des facteurs externes, tels que le coût de 
+                        l'électricité dans leur région, la taille de leur domicile et le nombre de personnes qui y vivent, ainsi que leur comportement de consommation d'énergie.
+                """),
+
             ],),
             html.Div(className='viz-container', children=[
                 dcc.DatePickerRange(
@@ -122,12 +127,12 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
             html.Div(className='text section', id='temperature', children=[
                 html.H2("Comment la température affecte la consommation d'électricité des québécois?"),
                 html.P("""Cette visualisation nous montre la consommation moyenne d'hydroélectricité du propriétaire et du locataire selon la température. 
-                            Comme on peut le constater dans le graphique en allant mettre le curseur sur les points, la plus grande moyenne d'énergie consommée 
-                            du propriétaire se situe à -24 °C, alors que pour le locataire, sa plus grande moyenne de consommation énergétique se situe quand 
-                            la température est à 31 °C. Normalement, en hiver on s'attend à voir une plus grande consommation d'électricité à cause du chauffage, 
-                            alors il est normal que le propriétaire dépenses plus l'hiver, mais le fait que le locataire ne suit pas cette tendance nous force à se
-                            demander la raison de cette inconsistance. Pour notre cas, le locataire ne payes pas son chauffage, alors une grande partie de la différence 
-                            de consommation entre le propriétaire et le locataire est à cause de cela.
+                           Comme on peut le constater dans le graphique en allant mettre le curseur sur les points, la plus grande moyenne d'énergie 
+                           consommée par le propriétaire se situe à -24 °C, alors que pour le locataire, sa plus grande moyenne de consommation énergétique 
+                           se situe la température est à 31 °C. Normalement, en hiver, on s'attend à voir une plus grande consommation d'électricité à cause 
+                           du chauffage, il est normal que le propriétaire dépenses plus l'hiver, mais le fait que le locataire ne suit pas cette tendance nous
+                            force à demander la raison de cette inconsistance. Pour notre cas, le locataire ne paye pas son chauffage, alors une grande partie
+                            de la différence  consommation entre le propriétaire et le locataire de cela.
                 """),
             ],),
             html.Div(className='viz-container', children=[
@@ -162,12 +167,12 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
             html.Div(className='text section', id='season', children=[
                 html.P(
                     """
-                    Une autre façon de visualiser les données selon la température est d'utiliser les saisons,
-                      chacune étant marqué par un climat particulier. Nous avonc donc calculer la consommation moyenne en 1h pour chaque saison. En regardant le diagramme à barre qui suit,
-                        on constate sans surprise que l'hiver coûte beaucoup plus cher aux québecois en électricité, étant donné que c'est la saison la plus froide.
-                        Suivant le même raisonnement, l'automne serait la prochaine saison en terme de consommation électrique. 
-                        Par contre, ce qui est surprenant, nous consommons plus en été, bien que ce soit la saison la plus chaude. Une explication possible
-                        serait l'utilisation de l'air climatisée, qui ne serait pas utiliser au printemps.
+                    Une autre façon de visualiser les données selon la température est d'utiliser les saisons, chacune étant marquée par un 
+                    climat particulier. Nous avons donc calculé la consommation moyenne en 1 h pour chaque saison. En regardant le diagramme 
+                    à barre qui suit, on constate sans surprise que l'hiver coûte beaucoup plus cher aux Québécois en électricité, étant donné 
+                    que c'est la saison la plus froide. Suivant le même raisonnement, l'automne serait la prochaine saison en termes de consommation
+                      électrique. Par contre, ce qui est surprenant, nous consommons plus en été, bien que ce soit la saison la plus chaude. Une explication 
+                      possible serait l'utilisation de l'air climatisé, qui ne serait pas utilisé au printemps.
                     """
                         )
             ],),
@@ -188,13 +193,12 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
             html.Div(className='text section', id='day', children=[
                 html.H2("Quelle est la consommation électrique d'une personne au cours de la journée?"),
                 html.P(
-                    """Le graphique suivant nous renseigne sur la consomation moyenne d'un utilsateur dans sa semaine, 
-                        afin de prendre en compte les données de nos 2 types d'utilisateurs, locataire et propriétaire. 
-                        La première chose que nous constatons est que les jours de fin de semaine indiquent une plus grande consommation électrique,
-                          ce qui n'est pas tant surprenant étant donnée que nous sommes plus souvent à la maison durant la fin de semaine. 
-                          On constate aussi que bien que la consommation soit plus grande le jour, cette différence n'est pas aussi marqué qu'on pourrait le croire (à peine le double), probablement à cause du 
-                          chauffage nécessaire pour chauffer l'habitat pendant la nuit. Finalement, on peut voir que la consommation durant la journée
-                          est relativement stable d'une journée à l'autre, restant entre 12kWh et 14kWh."""
+                    """Le graphique suivant nous renseigne sur la consomation moyenne d'un utilsateur dans sa semaine, afin de prendre en compte les données de nos 2 types 
+                    d'utilisateurs, locataire et propriétaire. La première chose que nous constatons est que les jours de fin de semaine indiquent une plus grande consommation
+                      électrique, ce qui n'est pas tant surprenant étant donnée que nous sommes plus souvent à la maison durant la fin de semaine. On constate aussi que bien 
+                      que la consommation soit plus grande le jour, cette différence n'est pas aussi marqué qu'on pourrait le croire (à peine le double), probablement à cause 
+                      du chauffage nécessaire pour chauffer l'habitat pendant la nuit. Finalement, on peut voir que la consommation durant la journéeest relativement stable
+                        d'une journée à l'autre, restant entre 12kWh et 14kWh."""
                         )
             ],),
             
@@ -215,11 +219,12 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
             html.Div(className='text section', id='time', children=[
                 html.P(
                     """
-                    Nous terminons cette page en plongeant davantage et en observant la consommation électrique moyenne d'un utilisateur
-                      au cours d'une journée. On constate un énorme pic à minuit. En temps normal, on ne devrait pas consommer autant pendant la nuit.
-                     Il est important de mentionner que nous n'avons pas beaucoup d'utilisateurs, et que l'un d'entre eux travaille de nuit, 
-                     cela pourrait donc expliquer les données. Sinon, on constate un autre pic en plein milieu de la journée,
-                       à midi, qui semble beaucoup plus naturel.
+                    Nous terminons cette page en plongeant davantage et en observant la consommation électrique moyenne d'un propriétaire au cours 
+                    d'une journée. On constate un énorme pic à minuit. En temps normal, on ne devrait pas consommer autant pendant la nuit. Il est 
+                    important de mentionner que nous n'avons qu'un seul propriétaire, et qu'il travaille de nuit, cela pourrait donc expliquer les 
+                    données. Sinon, on constate un autre pic en plein milieu de la journée, à midi, qui semble beaucoup plus naturel. Pour ce qui est du
+                      locataire, il est tout aussi actif la nuit. Considérant que nous sommes en classe la journée et qu'il étudie très tard le soir, il 
+                      n'y a rien de surprenant.
                     """
                         ),
             ],),

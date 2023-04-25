@@ -19,9 +19,14 @@ body {
 }
 
 a {
-    font-size: 20px;
+    font-size: 16px;
     color: white;
     text-decoration: none;
+    padding: 20px;
+}
+
+a:hover {
+    background-color: rgb(72, 72, 216);
 }
 
 main {
@@ -33,6 +38,7 @@ main {
 
 p {
     margin-bottom: 24px;
+    line-height: 1.5;
 }
 
 h1 {
