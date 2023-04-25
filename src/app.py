@@ -54,22 +54,27 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
             The HTML structure of the app's web page.
     '''
     navBarSection = [
-        {'key': 'Residential comparison', 'id': '#residence'},
-        {'key': 'Temperature', 'id': '#temperature'},
-        {'key': 'Seasons', 'id': '#season'},
-        {'key': 'Week days', 'id': '#day'},
-        {'key': 'Time of day', 'id': '#time'}
+        {'key': 'Accueil', 'id': '#home'},
+        {'key': 'Lieux de résidence', 'id': '#residence'},
+        {'key': 'Température', 'id': '#temperature'},
+        {'key': 'Saisons', 'id': '#season'},
+        {'key': 'Jour de la semaine', 'id': '#day'},
+        {'key': 'Heure de la journée', 'id': '#time'}
     ]
     return html.Div(className='content', children=[
         html.Nav([
             html.A(section['key'], href=section['id'], className='navigation-button')
             for section in navBarSection
         ], className='navbar ', id='navbar'),
-        html.Header(children=[
+        html.Header(id='home', children=[
             html.H1('Équipe 17'),
             html.H2('Consommation énergétique d’habitants de la province de Québec')
         ]),
         html.Main(children=[
+            html.Div(className='welcome', children=[
+                html.P("Est-ce que le lieu de résidence affecte la consommation électrique des québécois?"),
+
+            ]),
             html.Div(className='text section', id='residence', children=[
                 html.H2("Est-ce que le lieu de résidence affecte la consommation électrique des québécois?"),
                 html.H3("""Le graphique suivant montre la consommation d'hydroélectricité de juin 2022 à février 2023 d'un propriétaire habitant à Laval et d'un locataire habitant

@@ -28,6 +28,12 @@ header {
     border-color: black;
 }
 
+.welcome {
+    height: 650px;
+    width: 100vw;
+    padding: 0 100px;
+}
+
 main {
     height: 100%;
     padding-right: 25px;
