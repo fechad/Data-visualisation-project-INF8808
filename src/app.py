@@ -66,18 +66,28 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
             html.A(section['key'], href=section['id'], className='navigation-button')
             for section in navBarSection
         ], className='navbar ', id='navbar'),
-        html.Header(id='home', children=[
-            html.H1('Équipe 17'),
-            html.H2('Consommation énergétique d’habitants de la province de Québec')
-        ]),
         html.Main(children=[
+        html.Header(id='home', children=[
+            html.H1('Consommation énergétique d’habitants de la province de Québec')
+        ]),
             html.Div(className='welcome', children=[
-                html.P("Est-ce que le lieu de résidence affecte la consommation électrique des québécois?"),
+                html.P(
+                    """
+                    La province du Québec est l’un des plus grands producteurs d’électricité au Canada avec le tiers de de la totalité de la génération d’électricité 
+                    produite par celle-ci. En effet, le Québec a de nombreuses sources d’hydroélectricité avec 130 000 rivières et ruisseaux l’entourant et qui contiennent 
+                    environ 40% de l’eau du Canada. Il n’est donc pas étonnant de constater les taux peu élevés que Hydro-Québec offre: 6,319 sous pour les premiers 40 
+                    kilowattheures d’une journée pour les habitants de la catégorie “Rate D”, soit le taux pour les consommateurs résidentiels ou agricoles.
+                    Il est connu que les taux de Hydro-Québec sont bas, mais il serait intéressant d’observer s’il y a des grandes variations en termes de consommation lorsqu’on 
+                    est locataire de son appartement ou propriétaire de condo pour différents étudiants universitaires de la région de Montréal. Surtout depuis la pandémie, plusieurs 
+                    travaillent à distance ou ont des cours à distance. Il serait donc intéressant d’en voir les différences de consommation électrique s’il y en a. 
+                    """
+                ),
+                html.Img(src='/assets/manic.jpg', width='70%')
 
             ]),
             html.Div(className='text section', id='residence', children=[
                 html.H2("Est-ce que le lieu de résidence affecte la consommation électrique des québécois?"),
-                html.H3("""Le graphique suivant montre la consommation d'hydroélectricité de juin 2022 à février 2023 d'un propriétaire habitant à Laval et d'un locataire habitant
+                html.P("""Le graphique suivant montre la consommation d'hydroélectricité de juin 2022 à février 2023 d'un propriétaire habitant à Laval et d'un locataire habitant
                          à Montréal selon la date et l'heure de la journée. On voit alors ici que le propriétaire habitant à Laval semble consommer 
                          beaucoup plus d'énergie que le locataire habitant à Montréal. On peut donc dire que selon nos données, un locataire dépenses 
                          moins d'électricité qu'un propriétaire pendant presque toute l'année et un habitant de Laval dépenses plus en électricité 
@@ -111,7 +121,7 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
             ]),
             html.Div(className='text section', id='temperature', children=[
                 html.H2("Comment la température affecte la consommation d'électricité des québécois?"),
-                html.H3("""Cette visualisation nous montre la consommation moyenne d'hydroélectricité du propriétaire et du locataire selon la température. 
+                html.P("""Cette visualisation nous montre la consommation moyenne d'hydroélectricité du propriétaire et du locataire selon la température. 
                             Comme on peut le constater dans le graphique en allant mettre le curseur sur les points, la plus grande moyenne d'énergie consommée 
                             du propriétaire se situe à -24 °C, alors que pour le locataire, sa plus grande moyenne de consommation énergétique se situe quand 
                             la température est à 31 °C. Normalement, en hiver on s'attend à voir une plus grande consommation d'électricité à cause du chauffage, 
@@ -150,7 +160,7 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                 ]),
             ]),
             html.Div(className='text section', id='season', children=[
-                html.H3(
+                html.P(
                     """
                     Une autre façon de visualiser les données selon la température est d'utiliser les saisons,
                       chacune étant marqué par un climat particulier. Nous avonc donc calculer la consommation moyenne en 1h pour chaque saison. En regardant le diagramme à barre qui suit,
@@ -177,7 +187,7 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
             ], id='main'),
             html.Div(className='text section', id='day', children=[
                 html.H2("Quelle est la consommation électrique d'une personne au cours de la journée?"),
-                html.H3(
+                html.P(
                     """Le graphique suivant nous renseigne sur la consomation moyenne d'un utilsateur dans sa semaine, 
                         afin de prendre en compte les données de nos 2 types d'utilisateurs, locataire et propriétaire. 
                         La première chose que nous constatons est que les jours de fin de semaine indiquent une plus grande consommation électrique,
@@ -202,17 +212,16 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                     id='bar-chart-day'
                 ),
             ]),
-
             html.Div(className='text section', id='time', children=[
-                html.H3(
+                html.P(
                     """
                     Nous terminons cette page en plongeant davantage et en observant la consommation électrique moyenne d'un utilisateur
                       au cours d'une journée. On constate un énorme pic à minuit. En temps normal, on ne devrait pas consommer autant pendant la nuit.
-                     Il est important de mentionner que nous n'avons pas beaucoup d'utilisateur, et que l'un d'entre eux travaille de nuit, 
+                     Il est important de mentionner que nous n'avons pas beaucoup d'utilisateurs, et que l'un d'entre eux travaille de nuit, 
                      cela pourrait donc expliquer les données. Sinon, on constate un autre pic en plein milieu de la journée,
                        à midi, qui semble beaucoup plus naturel.
                     """
-                        )
+                        ),
             ],),
             html.Div(className='viz-container', id='padding', children=[
                 dcc.Graph(
@@ -242,35 +251,9 @@ def init_app_layout(figLineChartCompare,figLineChartToggle,figBarChartSeason,fig
                     )
                 ]),
             ]),
+            html.Div(className="end")
         ]),
-        dcc.Store(id='navbar-height', data=0)
     ])
-
-@app.callback(
-    Output('navbar', 'className'),
-    Input('scroll-position', 'children')
-)
-def update_navbar(scroll_position):
-    if scroll_position is None:
-        raise PreventUpdate
-    scroll_position = int(scroll_position)
-    if scroll_position > 50:
-        return 'navbar scroll'
-    else:
-        return 'navbar '
-
-app.clientside_callback(
-    """
-    function scrollToSection(section) {
-        const selectedSection = document.querySelector(section);
-        const position = selectedSection.offsetTop;
-        window.scrollTo({ top: position, behavior: 'smooth' });
-    }
-    """,
-    Output('scroll-position', 'children'),
-    Input({'type': 'navbar-link', 'index': ALL}, 'n_clicks'),
-    State({'type': 'navbar-link', 'index': ALL}, 'href'),
-)
 
 @app.callback(
     [Output('line-chart-toggle', 'figure')],
@@ -329,37 +312,37 @@ def update_dates(start_date, end_date, figure):
     
     return new_fig
 
-@app.callback(
-    Output('bar-chart-season', 'figure'),
-    Input('bar-chart-season', 'hoverData'),
-    State('bar-chart-season', 'figure'))
-def changeOpacity(hoverData, figure):
-    new_fig = figure
-    if hoverData is not None:
-        index = new_fig['data'][0]['x'].index(hoverData['points'][0]['x'])
-        new_fig['data'][0]['marker']['opacity'] = [0.4] * 4
-        new_fig['data'][0]['marker']['opacity'][index] = 1
-    else:
-        new_fig['data'][0]['marker']['opacity'] = [1] * 4
+# @app.callback(
+#     Output('bar-chart-season', 'figure'),
+#     Input('bar-chart-season', 'hoverData'),
+#     State('bar-chart-season', 'figure'))
+# def changeOpacity(hoverData, figure):
+#     new_fig = figure
+#     if hoverData is not None:
+#         index = new_fig['data'][0]['x'].index(hoverData['points'][0]['x'])
+#         new_fig['data'][0]['marker']['opacity'] = [0.4] * 4
+#         new_fig['data'][0]['marker']['opacity'][index] = 1
+#     else:
+#         new_fig['data'][0]['marker']['opacity'] = [1] * 4
     
-    return new_fig
+#     return new_fig
 
-@app.callback(
-    Output('bar-chart-day', 'figure'),
-    Input('bar-chart-day', 'hoverData'),
-    State('bar-chart-day', 'figure'))
-def changeOpacity(hoverData, figure):
-    new_fig = figure
-    if hoverData is not None:
-        index = new_fig['data'][0]['x'].index(hoverData['points'][0]['x'])
-        new_fig['data'][0]['marker']['opacity'] = [0.4] * 7
-        new_fig['data'][0]['marker']['opacity'][index] = 1
-        new_fig['data'][1]['marker']['opacity'] = [0.4] * 7
-        new_fig['data'][1]['marker']['opacity'][index] = 1
-    else:
-        new_fig['data'][0]['marker']['opacity'] = [1] * 7
+# @app.callback(
+#     Output('bar-chart-day', 'figure'),
+#     Input('bar-chart-day', 'hoverData'),
+#     State('bar-chart-day', 'figure'))
+# def changeOpacity(hoverData, figure):
+#     new_fig = figure
+#     if hoverData is not None:
+#         index = new_fig['data'][0]['x'].index(hoverData['points'][0]['x'])
+#         new_fig['data'][0]['marker']['opacity'] = [0.4] * 7
+#         new_fig['data'][0]['marker']['opacity'][index] = 1
+#         new_fig['data'][1]['marker']['opacity'] = [0.4] * 7
+#         new_fig['data'][1]['marker']['opacity'][index] = 1
+#     else:
+#         new_fig['data'][0]['marker']['opacity'] = [1] * 7
     
-    return new_fig
+#     return new_fig
 
 data = prep_data()
 my_df = preprocess.read_data()

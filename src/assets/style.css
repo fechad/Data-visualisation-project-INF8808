@@ -1,49 +1,44 @@
 body {
     font-family: 'Montserrat', 'sans-serif';
     font-size: 16px;
-    background-color: #fff;
-    color: #898989;
+    background-color: #f3f3f3;
     margin: 0;
-    height: 100vh;
+    font-family: 'Lucida Sans', sans-serif;
+    text-align: justify;
 }
 
 .navbar {
     display: flex;
     width: 100%;
-    height: 50px;
+    height: 60px;
     justify-content: space-evenly;
     align-items: center;
     position: fixed;
-    background-color: white;
+    background-color: rgb(61, 61, 226);
     z-index: 999;
 }
 
-header {
-    background-color: #fff;
-    padding: 50px 100px;
-    margin: 0 25px 0 0;
-    border-width: 0 1px 1px 0; 
-    border-radius: 0 0 25px 0;
-    border-style: solid;
-    border-color: black;
-}
-
-.welcome {
-    height: 650px;
-    width: 100vw;
-    padding: 0 100px;
+a {
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
 }
 
 main {
     height: 100%;
-    padding-right: 25px;
+    padding: 0% 10%;
+    margin-top: 60px;
+    overflow: auto;
+}
+
+p {
+    margin-bottom: 24px;
 }
 
 h1 {
-    color: #EEB902;
     font-family: 'Grenze Gotisch', 'serif';
-    font-size: 56px;
-    margin: 0;
+    font-size: 48px;
+    margin-bottom: 40px;
     font-weight: normal;
 }
 
@@ -68,6 +63,18 @@ button:hover, button:active {
 	background-color:#f6f6f6;
 }
 
+.section {
+    padding-top: 80px;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+  }
+
 .content {
     display: flex;
     flex-direction: column;
@@ -75,12 +82,17 @@ button:hover, button:active {
     height: 100vh;
 }
 
-.viz-container{
-    height: 70%;
+.viz-container {
+    height: 60%;
     flex-direction: column;
     display: flex;
     justify-content: center;
-    padding: 0 100px;
+    width: 70%;
+
+}
+
+.viz-container:not(:has(#dates)) {
+    background-color: white;
 }
 
 .xy {
@@ -92,18 +104,12 @@ button:hover, button:active {
     height: 100%;
 }
 
-.text {
-    text-align: justify;
-    padding: 0 10vw;
-
-}
-
 H2 {
     text-align: start;
-    font-size: 36px;
     color: #000;
     font-weight: 900;
 }
+
 
 .panel {
     display: flex;
@@ -127,6 +133,6 @@ H2 {
     font-weight: bold;
 }
 
-#padding {
-    padding-bottom: 10vh;
+.end {
+    height: 20vh;
 }
