@@ -70,7 +70,8 @@ button:hover, button:active {
 }
 
 .section {
-    padding-top: 80px;
+    margin-top: 60px;
+    padding-top: 20px;
 }
 
 ::-webkit-scrollbar {
